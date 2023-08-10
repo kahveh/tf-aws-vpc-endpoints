@@ -43,7 +43,9 @@ variable "security_group_rules" {
   description = "Security group rules to add to the security group created"
   type        = any
   default     = {
-    default = {}
+    default = {
+      cidr_blocks = local.ingress_cidrs
+    }
   }
 }
 
