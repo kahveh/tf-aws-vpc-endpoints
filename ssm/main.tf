@@ -32,6 +32,7 @@ module "security_group" {
   vpc_id = var.vpc_id
 
   services = local.services
+  security_group_name = "vpc-endpoint-ssm"
 }
 
 
