@@ -11,7 +11,7 @@ variable "service" {
 variable "service_type" {
   type        = string
   description = "Service type (Interface | Gateway)"
-  default     = null
+  default     = "Interface"
 }
 
 variable "policy" {
