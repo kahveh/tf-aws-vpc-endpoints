@@ -11,7 +11,7 @@ locals {
 }
 
 data "aws_vpc_endpoint_service" "this" {
-  service_name = var.service_name
+  service = var.service
 
   filter {
     name   = "service-type"

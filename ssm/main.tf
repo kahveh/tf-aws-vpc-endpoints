@@ -40,7 +40,7 @@ module "endpoints" {
   source   = "../modules/endpoint"
 
   vpc_id              = var.vpc_id
-  service_name        = each.key
+  service             = each.key
   security_group_ids  = var.security_group_ids
   policy              = var.policy
   auto_accept         = var.auto_accept

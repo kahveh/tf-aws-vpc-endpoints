@@ -3,7 +3,7 @@ variable "vpc_id" {
   description = "Existing VPC ID"
 }
 
-variable "service_name" {
+variable "service" {
   type        = string
   description = "Service name"
 }
