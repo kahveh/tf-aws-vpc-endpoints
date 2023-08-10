@@ -44,7 +44,7 @@ variable "security_group_rules" {
   type        = any
   default     = {
     default = {
-      cidr_blocks = local.ingress_cidrs
+      cidr_blocks = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
     }
   }
 }
