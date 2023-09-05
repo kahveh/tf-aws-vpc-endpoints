@@ -43,9 +43,7 @@ variable "security_group_rules" {
   description = "Security group rules to add to the security group created"
   type        = any
   default     = {
-    default = {
-      cidr_blocks = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
-    }
+    default = {}
   }
 }
 

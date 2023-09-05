@@ -5,7 +5,11 @@
 locals {
   rfc1918       = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
   ingress_cidrs = try(var.custom_ingress_cidrs, local.rfc1918)
-  description = try(var.security_group_description, "Allow TLS inbound traffic for ${join(" ,", try(var.services, "vpc service"))} endpoints")
+  description   = try(var.security_group_description, "Allow TLS inbound traffic for ${join(" ,", try(var.services, "vpc service"))} endpoints")
+}
+
+data "aws_vpc" "this" {
+  id = var.vpc_id
 }
 
 resource "aws_security_group" "this" {
@@ -35,8 +39,12 @@ resource "aws_security_group_rule" "this" {
   type              = try(each.value.type, "ingress")
 
   # Optional
-  description              = try(each.value.description, null)
-  cidr_blocks              = lookup(each.value, "cidr_blocks", null)
+  description = try(each.value.description, null)
+
+  cidr_blocks = each.key == "default" ? [
+    data.aws_vpc.this.cidr_block
+  ] : lookup(each.value, "cidr_blocks", null)
+
   ipv6_cidr_blocks         = lookup(each.value, "ipv6_cidr_blocks", null)
   prefix_list_ids          = lookup(each.value, "prefix_list_ids", null)
   self                     = try(each.value.self, null)
