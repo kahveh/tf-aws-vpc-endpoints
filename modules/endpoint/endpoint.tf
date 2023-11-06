@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  service_type        = try(data.aws_vpc_endpoint_service.this.service_type, "Interface")
+  service_type        = try(data.aws_vpc_endpoint_service.this.service_type, var.service_type)
   security_group_ids  = local.service_type == "Interface" ? length(try(var.security_group_ids, [])) > 0 ? distinct(var.security_group_ids) : null : null
   subnet_ids          = local.service_type == "Interface" ? distinct(try(var.subnet_ids, [])) : null
   route_table_ids     = local.service_type == "Gateway" ? try(var.route_table_ids, null) : null
